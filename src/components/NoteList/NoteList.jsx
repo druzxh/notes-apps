@@ -1,7 +1,5 @@
-// NoteList.js
 import React from 'react';
 import NoteItem from './NoteItem';
-
 function NoteList({ notes, onDelete, onArchive }) {
     const activeNotes = notes.filter((note) => !note.archived);
     const archivedNotes = notes.filter((note) => note.archived);

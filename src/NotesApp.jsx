@@ -1,9 +1,6 @@
 import React from 'react';
 import { getInitialData } from './utils';
-import NoteList from './components/NoteList';
-import AddNote from './components/AddNotes';
-import { Fragment } from 'react';
-
+import { NoteList, Heading, AddNote, Alert } from './components';
 class NotesApp extends React.Component {
     constructor(props) {
         super(props);
@@ -13,12 +10,18 @@ class NotesApp extends React.Component {
             originalNotes: getInitialData(),
             showAlert: false,
             alertMessage: "",
+            addNoteData: {
+                title: '',
+                body: '',
+            },
+            error: ""
         };
 
         this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
         this.handleAlert = this.handleAlert.bind(this);
+        this.handleNoteChange = this.handleNoteChange.bind(this);
     }
 
     handleArchive = (noteId) => {
@@ -45,11 +48,40 @@ class NotesApp extends React.Component {
             createdAt: new Date(),
         };
 
+        if (title.trim() === '' && body.trim() === '') {
+            this.setState({ error: 'Judul dan isi catatan tidak boleh kosong!' });
+            return
+        } else if (body.trim() === '') {
+            this.setState({ error: 'Isi catatan tidak boleh kosong!' });
+            return
+        } else if (title.trim() === '') {
+            this.setState({ error: 'Judul catatan tidak boleh kosong!' });
+            return
+        }
+
+        if (body.length > 50) {
+            setError('Isi catatan tidak boleh lebih dari 50 karakter!');
+        }
+
         this.setState((prevState) => {
             return {
                 notes: [newNote, ...prevState.notes],
+                addNoteData: {
+                    title: '',
+                    body: '',
+                },
+                error: ''
             };
         });
+    }
+
+    handleNoteChange(name, value) {
+        this.setState((prevState) => ({
+            addNoteData: {
+                ...prevState.addNoteData,
+                [name]: value,
+            },
+        }));
     }
 
     handleSearchChange(event) {
@@ -90,30 +122,10 @@ class NotesApp extends React.Component {
     render() {
         return (
             <div className="container">
-                <div className='navbar'>
-                    <h1 className='nav-title'>Notes App</h1>
-                    <form className="nav-search" onSubmit={this.handleSearchSubmit}>
-                        <input
-                            type="text"
-                            name="search"
-                            placeholder="Cari judul atau nama catatanmu disini..."
-                            value={this.state.searchValue}
-                            onChange={this.handleSearchChange}
-                        />
-                        <button type="submit">Search</button>
-                    </form>
-                    <h1 className='nav-title'>Versi 1.0</h1>
-                </div>
-                <AddNote addNote={this.onAddNoteHandler} />
+                <Heading onSearchChange={this.handleSearchChange} onSubmitSearch={this.handleSearchSubmit} value={this.searchValue} />
+                <AddNote addNote={this.onAddNoteHandler} onChange={this.handleNoteChange} formData={this.state.addNoteData} error={this.state.error} />
                 {this.state.showAlert && (
-                    <div className="custom-alert-overlay">
-                        <div className="custom-alert">
-                            <div className="custom-alert-box">
-                                <h2 className='custom-alert-message'>{this.alertMessage}</h2>
-                                <button onClick={this.handleAlert}>tutup</button>
-                            </div>
-                        </div>
-                    </div>
+                    <Alert alertMessage={this.alertMessage} onHandleAlert={this.handleAlert} />
                 )}
                 <NoteList notes={this.state.notes} onArchive={this.handleArchive} onDelete={this.handleDelete} />
             </div>

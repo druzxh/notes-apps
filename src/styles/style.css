@@ -59,7 +59,7 @@ h2 {
 }
 
 /* Styles for Navbar */
-.navbar {
+.heading {
     background-color: #007bff;
     color: #fff;
     display: flex;
@@ -68,20 +68,20 @@ h2 {
     padding: 10px;
 }
 
-.nav-title {
+.heading-title {
     font-size: 24px;
     margin: 0 10px;
     margin-right: 20px;
 }
 
-.nav-search {
+.heading-search {
     display: flex;
     align-items: center;
     flex-grow: 1;
     margin: 0 100px;
 }
 
-.nav-search input[type="text"] {
+.heading-search input[type="text"] {
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -91,7 +91,7 @@ h2 {
     flex-grow: 1;
 }
 
-.nav-search button[type="submit"] {
+.heading-search button[type="submit"] {
     padding: 10px 20px;
     background-color: #0056b3;
     color: #fff;
@@ -102,7 +102,7 @@ h2 {
     outline: none;
 }
 
-.nav-search button[type="submit"]:hover {
+.heading-search button[type="submit"]:hover {
     background-color: #004288;
 }
 
@@ -299,16 +299,99 @@ h2 {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
+
+    h1 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    h2 {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .custom-alert-message {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .heading-search input[type="text"] {
+        margin-right: 5px;
+    }
+
+    .heading-search button[type="submit"] {
+        margin-right: 0;
+    }
+
+    .add-note input[type="text"],
+    .add-note textarea {
+        padding: 8px;
+    }
+
+    .add-note button[type="submit"] {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .add-note__title,
+    .add-note__error {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .note-item {
+        margin-bottom: 15px;
+    }
+
+    .add-note__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .add-note__form {
+        margin-right: 10px;
+        font-size: 12px;
+
+    }
+
+    .add-note__instructions {
+        font-size: 12px;
+    }
+
+    .heading-search {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
         margin: 0;
-        padding: 20px;
+    }
+
+    .note-title {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .note-text {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 10px;
     }
 
     .note-list {
         flex-direction: column;
+        align-items: center;
     }
 
     .note-item {
-        flex: 0 1 100%;
+        padding: 5px;
+        flex: 1;
+        margin-bottom: 15px;
+    }
+
+}
+
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 32px;
     }
 }

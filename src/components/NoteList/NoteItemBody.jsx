@@ -1,5 +1,5 @@
 import React from 'react';
-import { showFormattedDate } from '../utils';
+import { showFormattedDate } from '../../utils';
 import NoteActions from './NoteActions';
 
 function NoteItemBody({ id, title, body, createdAt, archived, onDelete, onArchive }) {

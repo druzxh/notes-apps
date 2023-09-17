@@ -1,7 +1,5 @@
 import React from 'react';
-import NoteActions from './NoteActions';
 import NoteItemBody from './NoteItemBody';
-import { showFormattedDate } from '../utils';
 function NoteItem({ id, title, body, createdAt, archived, onDelete, onArchive }) {
     return (
         <div className={`note-item ${archived ? 'archived' : ''}`}>
